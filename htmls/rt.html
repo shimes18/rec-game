@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction Time</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+        font-family: 'Montserrat', sans-serif;
+        }
+
+        body{
+            margin:0;
+            padding:0;
+        }
+        #title{
+            background-color: cyan;
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: center;
+            height: 50px;
+            align-self: center;
+        }
+        #game{
+            background-color: #1e1b2e ;
+            height: 80vh;
+            display:flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        #announce{
+            color: whitesmoke;
+            text-align: center;
+            font-weight: bolder;
+            font-size: 30px;
+            margin-top: 30vh;
+            justify-content: center;
+        }
+        #stats{
+            color:whitesmoke;
+            display:flex;
+            flex-direction: row;
+            gap: 70vw;
+        }
+    </style>
+</head>
+<body>
+    <div id='title'>Reaction Time Check</div>
+    <div id="game">
+        <div id=stats>
+            <div id="round"></div>
+            <div id="best"></div>
+        </div>
+        <div id="announce"></div>
+        <div id='time'></div>
+    </div>
+
+    <script>
+        const time=document.getElementById('time');
+        const announce= document.getElementById('announce')
+        const bg = document.getElementById('game')
+        let state='prestart';
+        let round=0;
+        let best=0;
+
+        document.getElementById('round').innerHTML='Round: '+round;
+        document.getElementById('best').innerHTML=' Your best time is: '+best;
+        let pretimer=0
+        if (state=='prestart'){
+            announce.innerHTML = 'Click to start'
+        }
+
+        bg.addEventListener('click',function (){
+            if (state=='prestart'){
+                state='start';
+                announce.innerHTML = 'Wait for background to turn green';
+
+                setTimeout(()=>{
+                    bg.style.backgroundColor = 'lime'
+                    bg.style.color = 'black'
+                },Math.floor(Math.random()*3000)+2000);
+            }
+        
+            
+        });
+    
+
+    
+
+    </script>
+</body>
+</html>
