@@ -42,8 +42,6 @@
         #stats{
             color:whitesmoke;
             display:flex;
-            flex-direction: row;
-            gap: 70vw;
         }
     </style>
 </head>
@@ -51,7 +49,7 @@
     <div id='title'>Reaction Time Check</div>
     <div id="game">
         <div id=stats>
-            <div id="round"></div>
+            Your best score is:
             <div id="best"></div>
         </div>
         <div id="announce"></div>
@@ -66,10 +64,9 @@
         let round=0;
         let timer=0;
         let starttime=0;
-        let best = localStorage.getItem(bestrt) || 10000 ;
+        let best = Number(localStorage.getItem('bestrt')) || 10000 ;
 
-        document.getElementById('round').innerHTML='Round: '+round;
-        document.getElementById('best').innerHTML=' Your best time is: '+best;
+        document.getElementById('best').innerHTML= ' Your best time is: '+ best ==10000 ? 0 : Math.floor(best) + 'ms';
         let pretimer=0
         if (state=='prestart'){
             announce.innerHTML = 'Click to start';
@@ -78,6 +75,7 @@
         bg.addEventListener('click',function (){
             if (state=='prestart'){
                 state='start';
+                time.innerHTML=' '
                 announce.innerHTML = 'Wait for background to turn green';
                 bg.style.backgroundColor= 'red';
 
@@ -87,6 +85,7 @@
                     announce.innerHTML= 'Click!!!';
                     counting='start';
                     starttime= performance.now();
+                    state='green'
                 },Math.floor(Math.random()*3000)+2000);
             }
             
@@ -104,15 +103,21 @@
                 time.innerHTML=Math.floor(timer)+'ms';
                 announce.innerHTML='Click to start again';
                 state='prestart';
+                if (best>timer){
+                    localStorage.setItem('bestrt',String(timer));
+                    best = timer;
+                    document.getElementById('best').innerHTML= ' Your best time is: '+ best ==10000 ? 0 : Math.floor(best) + 'ms';
+                }
             }
 
 
 
+            
+
+
         });
-        if (best>timer){
-            localStorage.setItem(bestrt,timer);
-            best = timer;
-        }
+
+
     </script>
 </body>
 </html>
