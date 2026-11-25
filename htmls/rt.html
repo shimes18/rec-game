@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reaction Time</title>
     <style>
+        
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
         body {
@@ -63,32 +64,55 @@
         const bg = document.getElementById('game')
         let state='prestart';
         let round=0;
-        let best=0;
+        let timer=0;
+        let starttime=0;
+        let best = localStorage.getItem(bestrt) || 10000 ;
 
         document.getElementById('round').innerHTML='Round: '+round;
         document.getElementById('best').innerHTML=' Your best time is: '+best;
         let pretimer=0
         if (state=='prestart'){
-            announce.innerHTML = 'Click to start'
+            announce.innerHTML = 'Click to start';
         }
 
         bg.addEventListener('click',function (){
             if (state=='prestart'){
                 state='start';
                 announce.innerHTML = 'Wait for background to turn green';
+                bg.style.backgroundColor= 'red';
 
                 setTimeout(()=>{
-                    bg.style.backgroundColor = 'lime'
-                    bg.style.color = 'black'
+                    bg.style.backgroundColor = 'lime';
+                    announce.style.color = '#000000';
+                    announce.innerHTML= 'Click!!!';
+                    counting='start';
+                    starttime= performance.now();
                 },Math.floor(Math.random()*3000)+2000);
             }
-        
+            
+
             
         });
     
 
-    
+        bg.addEventListener('click',function (){
+            if (bg.style.backgroundColor=='lime'){
+                timer= performance.now()-starttime;
+                bg.style.backgroundColor='#1e1b2e';
+                bg.style.color = 'whitesmoke';
+                announce.style.color = 'whitesmoke';
+                time.innerHTML=Math.floor(timer)+'ms';
+                announce.innerHTML='Click to start again';
+                state='prestart';
+            }
 
+
+
+        });
+        if (best>timer){
+            localStorage.setItem(bestrt,timer);
+            best = timer;
+        }
     </script>
 </body>
 </html>
