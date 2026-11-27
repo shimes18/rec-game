@@ -79,6 +79,7 @@
         }
         #anshead{
             margin-top: -10px;
+            align-self: center;
         }
         #butdiv{
             justify-content: center;
@@ -96,6 +97,7 @@
         }
         #anss{
             gap:1px;
+            align-self: center;
         }
     </style>
 </head>
@@ -152,6 +154,9 @@
             document.getElementById('cans').style.display= 'none'
             document.getElementById('ans').innerText= guess.toReversed()
             num = Math.floor(Math.random()*1000000);
+            document.getElementById('hintdiv').innerHTML=' '
+            document.getElementById('re').style.display='move';
+
         }
         document.getElementById('inp').addEventListener('keydown',function(e){
             if (e.key=='Enter'){
