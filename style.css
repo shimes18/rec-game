@@ -21,7 +21,11 @@ body{
     object-position: center;
     object-fit: cover;
 }
-#game1{
+.game{
     display: flex;
     flex-direction: column;
+}
+#mainblock{
+    gap:20px;
+    display: flex;
 }

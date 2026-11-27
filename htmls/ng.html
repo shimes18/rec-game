@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the number</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            font-size: 5vh;
+            background-color: black;
+        }
+        #game{
+            min-height: 70vh;
+            width: 80vw;
+            margin-left: 10vw;
+            margin-top: 10vh;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: whitesmoke;
+            display:flex;
+            flex-direction: column;
+            gap:40px;
+            border-color: whitesmoke;
+            border-width: 2px;
+            border-radius: 8px;
+            border-style: solid;
+            backdrop-filter: blur(12px);
+        }
+        #inputs{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        button{
+            width:60px;
+            align-self: center;
+            background-color: limegreen;
+            color: whitesmoke;
+            border: 0px;
+            border-radius: 7px;
+            font-weight: bold;
+            font-size: 20px;
+            width: fit-content;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover, #hint:hover{
+            font-size: 25px;
+            background-color: limegreen;
+            background-color: whitesmoke;
+            color:limegreen;
+            border-width: 10px;
+            box-shadow: 0 0 5px limegreen ;
+            border-color: whitesmoke;
+        }
+        #inp{
+            width: 60%;
+            align-self: center;
+        }
+        #logo{
+            margin-top: 20px;
+            align-self: center;
+            color: limegreen;
+        }
+        #cans{
+            margin-top: -40px;
+            color:lime;
+            display:none;
+        }
+        #ans{
+            color: rgb(255, 101, 101);
+            margin-top: -60px;
+        }
+        input{
+            border-radius: 4px;
+            outline: none;
+            box-shadow: none;
+            height: 30px;
+        }
+        #anshead{
+            margin-top: -10px;
+        }
+        #butdiv{
+            justify-content: center;
+            align-self: center;
+            gap: 15px;
+        }
+        #hintdiv{
+            margin-top: -30px;
+            font-size: 10px;
+            color: whitesmoke;
+            align-self: center;
+        }
+        #re{
+            display:none;
+        }
+        #anss{
+            gap:1px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <div id="logo">Guess the number</div>
+        <div id="hintdiv"></div>
+        <div id="inputs">
+            <input id="inp" placeholder="1000">
+            <div id="butdiv">
+                <button id="but" onclick="check()">Check</button>
+                <button id="hint" onclick="hint()">Hint</button>
+                <button id="re" onclick="restart()">Play again</button>
+            </div>
+        </div>
+        <div id="anshead"><b>GUESSES :</b></div>
+        <div id='anss'>
+            <div id="cans"></div>
+            <div id="ans"></div>
+        </div>
+    </div>
+    <script>
+        let num=Math.floor(Math.random()*1000000)
+        let guess=[]
+        let correctans=[]
+        let a=0
+        function check(){
+            a+=1
+            alert(num)
+            ans=document.getElementById('inp').value;
+            if (ans==num){
+                document.getElementById('cans').innerText= ans + '✅'
+                document.getElementById('cans').style.display= 'block'
+                document.getElementById('ans').style.marginTop= '-37px'
+                document.getElementById('hintdiv').innerHTML='You guessed the number in '+ a + ' tries';
+                document.getElementById('re').style.display='block';
+            }
+            if (ans>num){
+                guess.push(`\n${ans} ⬇️`)
+                document.getElementById('ans').innerText= guess.toReversed()
+            }
+            if (ans<num){
+                guess.push(`\n${ans} ⬆️`)
+                document.getElementById('ans').innerText= guess.toReversed()
+            }
+        }
+        function hint(){
+            document.getElementById('hintdiv').innerHTML='Number of digits is: '+ num.toString().length;
+        }
+        document.getElementById('ans').innerText= guess.toReversed()
+        function restart(){
+            guess=[];
+            document.getElementById('cans').innerText= ans 
+            document.getElementById('cans').style.display= 'none'
+            document.getElementById('ans').innerText= guess.toReversed()
+            num = Math.floor(Math.random()*1000000);
+        }
+        document.getElementById('inp').addEventListener('keydown',function(e){
+            if (e.key=='Enter'){
+                check();
+            }
+        })
+    </script>
+</body>
+</html>
